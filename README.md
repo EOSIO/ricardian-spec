@@ -62,7 +62,7 @@ The specification version follows a semantic versioning (semver) inspired scheme
 
 #### Images
 
-Contracts may contain inline images. Images must be of the format *url#SHA256HASH* (e.g., https://a.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562). Contracts containing images that do not have a SHA-256 hash will be rejected. I addition, validating user agents may check that the SHA-256 hash of the image data matches the hash supplied with the URL, and reject the contract if the hashes do not match.
+Contracts may contain inline images. Images must be of the format *url#SHA256HASH* (e.g., https://a.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562). Contracts containing images that do not have a SHA-256 hash will be rejected. In addition, validating user agents may check that the SHA-256 hash of the image data matches the hash supplied with the URL, and reject the contract if the hashes do not match.
 
 #### Variables
 
