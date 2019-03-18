@@ -1,6 +1,6 @@
 ## EOSIO Ricardian Contract Specification
 
-**Spec Version**: v0.0.0
+**Spec Version**: v0.1.0
 
 ### General Information
 
@@ -8,7 +8,7 @@ The Ricardian Contract Specification gives a set of requirements that a Ricardia
 
 By conforming to a common specification, contracts can be validated and presented in a common way. For instance, Resources must contain a SHA-256 hash value which will allow a validating user agent to check the resource contents and ensure that the resource at the URL has not been altered. Since resources can be used to represent the user or company that is proposing the contract, it is important that the resource URL for the contract is correct and has not been altered since the contract was published.
 
-Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in YAML format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution.
+Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in JSON format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution.
 
 ### Metadata Fields
 
@@ -31,6 +31,8 @@ Ricardian contracts should be written in the English language. The contract itse
   * Must be a valid Resource (*see below*)
   * Must include the SHA-256 hash. Contracts containing an icon without hashes will be rejected.
   * This icon may be displayed alongside the Ricardian contract
+* `resources`
+  * Contains a map of resources (*see below*) that are used in the Ricardian contract.
 
 ### Other Metadata Fields
 
@@ -60,9 +62,19 @@ The specification version follows a semantic versioning (semver) inspired scheme
 * Versions differing only in the `PATCH` version *MUST* be processable by any processor with the same `MAJOR.MINOR` version.
 * This will indicate changes in the specification that have no tangible effect on processing. For example, a textual change to the specification intended for human readability, spelling corrections, etc.
 
-#### Images
+#### Resources
 
-Contracts may contain inline images. Images must be of the format *url#SHA256HASH* (e.g., https://a.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562). Contracts containing images that do not have a SHA-256 hash will be rejected. In addition, validating user agents may check that the SHA-256 hash of the image data matches the hash supplied with the URL, and reject the contract if the hashes do not match.
+Contracts may contain inline resources. A resource is defined as follows:
+```
+{
+  type: string
+  hash: string,
+  urls: string[]
+}
+```
+Currently the only supported type is `image`.
+
+Resources that do not have a SHA-256 `hash` specified will be rejected. In addition, validating user agents may check that the SHA-256 hash of the resource data (as pulled from any one of the specified urls) matches the supplied hash, and reject the contract if the hashes do not match.
 
 #### Variables
 
@@ -76,7 +88,8 @@ The Ricardian Template Toolkit will supply the following variables, which allow 
 * `$action` &ndash; Provides access to variables within the current action. E.g., `...using the {{$action.name}} contract on the {{$action.account}} account.`
 * `$clauses.clause_id` &ndash; Provides access to data in the `ricardian_clauses` on the ABI. E.g., `Section 2:\n\n{{$clauses.standard_clause}}`
 * Items in an array may be accessed by index. E.g., Accessing data in another action &ndash; `{{$transaction.actions.[2].data.from}}`
-* `$index` &ndash; A pseudo-field giving you the index of the current item in the array you're within. E.g., `{{$action.$index}}`
+* `$index` &ndash; A pseudo-field giving you the index of the current item in the array you're within. E.g., `{{$action.$index}}`	
+* `$resources` &ndash; Provides access to the content that is retrieved for the matching resource from the metadata fields.
 
 Variables may include a reference to other variables. A maximum number of three variable interpolation passes will be made. If there are still unresolved variables after the third pass, the contract will be considered invalid and an error will be returned by the user agent.
 
@@ -115,11 +128,31 @@ Metadata values beginning with special characters, such as a variable bracket (`
 
 ```
 ---
-title: Create Post
-summary: Create a blog post "{{title}}" by {{author}} tagged as "{{tag}}"
-icon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562
+{
+  "title": "Create Post",
+  "summary": "Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"",
+  "icon": {
+    "type": "image",
+    "hash": "00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562",
+    "urls": [
+      "https://app.com/create-post.png",
+      "https://dev.app.com/create-post.png"
+    ]
+  },
+  "resources": {
+    "content": {
+      "type": "image",
+      "hash": "1324FECCDDBB89089089090",
+      "urls": [
+        "https://app.com/user-1/profile-pic.jpg",
+      ]
+    }
+  }
+}
 ---
 I, {{author}}, author of the blog post "{{title}}", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.
+
+{{$resources.content}}
 
 {{$clauses.legalese}}
 ```
@@ -131,7 +164,8 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
     {
       "name": "createpost",
       "type": "createpost",
-      "ricardian_contract": "\n---\ntitle: Create Post\nsummary: Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"\nicon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}\n"
+      "ricardian_contract": "---\n{\n  \"title\": \"Create Post\",\n  \"summary\": \"Create a blog post \\\"{{title}}\\\" by {{author}} tagged as \\\"{{tag}}\\\"\",\n  \"icon\": {\n    \"type\": \"image\",\n    \"hash\": \"00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\",\n    \"urls\": [\n      \"https://app.com/create-post.png\",\n      \"https://dev.app.com/create-post.png\"\n    ]\n  },\n  \"resources\": {\n    \"content\": {\n      \"type\": \"image\",\n      \"hash\": \"1324FECCDDBB89089089090\",\n      \"urls\": [\n        \"https://app.com/user-1/profile-pic.jpg\",\n      ]\n    }\n  }\n}\n---\nLiking this property will be visible to anyone who views your profile or searches your name.\nThis like may result in the post owner’s property to be featured on the property owner’s most liked pages.\nAny usage of bots, macros, or any autonomous form of liking a specific person’s property would result in the investigation of like legitimacy for a post."
+
     }
 ]
 
