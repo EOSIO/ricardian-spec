@@ -8,7 +8,7 @@ The Ricardian Contract Specification gives a set of requirements that a Ricardia
 
 By conforming to a common specification, contracts can be validated and presented in a common way. For instance, Resources must contain a SHA-256 hash value which will allow a validating user agent to check the resource contents and ensure that the resource at the URL has not been altered. Since resources can be used to represent the user or company that is proposing the contract, it is important that the resource URL for the contract is correct and has not been altered since the contract was published.
 
-Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in JSON format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution.
+Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in JSON format or YAML format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution.
 
 ### Metadata Fields
 
@@ -64,7 +64,9 @@ The specification version follows a semantic versioning (semver) inspired scheme
 
 #### Resources
 
-Contracts may contain inline resources. A resource is defined as follows:
+Contracts may contain inline resources. **Notice:** to specify resources, the metadata values **must be supplied in JSON format**, not YAML. Please see the [README for v0.0.0](/blob/v0.0.0/README.md#images) for an example of how to define images in YAML format.
+
+A resource is defined as follows:
 ```
 {
   type: string
@@ -125,6 +127,8 @@ To accommodate this, `{{{variables}}}` wrapped in triple brackets will have HTML
 Metadata values beginning with special characters, such as a variable bracket (`{`), may not be parsed properly by some engines. Ricardian metadata is YAML, and YAML values beginning with special characters are not valid. To get around this, wrap any metadata values beginning with special characters in single quotes.
 
 ### Example Template
+
+The example below shows the metadata values supplied in JSON format. Please see the [README for v0.0.0](/blob/v0.0.0/README.md#example-template) for an example of the metadata values supplied in YAML format.
 
 ```
 ---
