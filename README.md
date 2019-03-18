@@ -66,11 +66,11 @@ Contracts may contain inline images. Images must be of the format *url#SHA256HAS
 
 #### Variables
 
-All variables used within a contract must have a value or the contract will be rejected. Variable values may be supplied in the transaction, in the contract action, or in the Ricardian clause on the ABI. In addition, the Contract Template Toolkit will supply variables about the transaction.
+All variables used within a contract must have a value or the contract will be rejected. Variable values may be supplied in the transaction, in the contract action, or in the Ricardian clause on the ABI. In addition, the Ricardian Template Toolkit will supply variables about the transaction.
 
 The default scope for variables is the current action's `data` object. The `eosio.token::transfer` action, for example, has `from`, `to`, `quantity` and `memo` properties. Those variables may be referenced directly: `I am sending {{quantity}} tokens from {{from}} to {{to}}.`.
 
-The Contract Template Toolkit will supply the following variables, which allow the contract to refer to other parts of the transaction:
+The Ricardian Template Toolkit will supply the following variables, which allow the contract to refer to other parts of the transaction:
 
 * `$transaction` &ndash; Provides access to transaction-level data like `expiration` or `delay_sec`. E.g., `...with a delay of {{$transaction.delay_sec}} seconds.`
 * `$action` &ndash; Provides access to variables within the current action. E.g., `...using the {{$action.name}} contract on the {{$action.account}} account.`
