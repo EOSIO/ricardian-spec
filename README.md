@@ -64,7 +64,7 @@ The specification version follows a semantic versioning (semver) inspired scheme
 
 #### Resources
 
-Contracts may contain inline resources. **Notice:** to specify resources, the metadata values **must be supplied in JSON format**, not YAML. Please see the [README for v0.0.0](/blob/v0.0.0/README.md#images) for an example of how to define images in YAML format.
+Contracts may contain inline resources. **Notice:** to specify resources, the metadata values **must be supplied in JSON format**, not YAML. Please see the [README for v0.0.0](https://github.com/EOSIO/ricardian-spec/blob/v0.0.0/README.md#images) for an example of how to define images in YAML format.
 
 A resource is defined as follows:
 ```
@@ -128,7 +128,7 @@ Metadata values beginning with special characters, such as a variable bracket (`
 
 ### Example Template
 
-The example below shows the metadata values supplied in JSON format. Please see the [README for v0.0.0](/blob/v0.0.0/README.md#example-template) for an example of the metadata values supplied in YAML format.
+The example below shows the metadata values supplied in JSON format. Please see the [README for v0.0.0](https://github.com/EOSIO/ricardian-spec/blob/v0.0.0/README.md#example-template) for an example of the metadata values supplied in YAML format.
 
 ```
 ---
