@@ -165,13 +165,12 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
 
 ```json
 "actions": [
-    {
-      "name": "createpost",
-      "type": "createpost",
-      "ricardian_contract": "---\n{\n  \"title\": \"Create Post\",\n  \"summary\": \"Create a blog post \\\"{{title}}\\\" by {{author}} tagged as \\\"{{tag}}\\\"\",\n  \"icon\": {\n    \"type\": \"image\",\n    \"hash\": \"00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\",\n    \"urls\": [\n      \"https://app.com/create-post.png\",\n      \"https://dev.app.com/create-post.png\"\n    ]\n  },\n  \"resources\": {\n    \"content\": {\n      \"type\": \"image\",\n      \"hash\": \"1324FECCDDBB89089089090\",\n      \"urls\": [\n        \"https://app.com/user-1/profile-pic.jpg\",\n      ]\n    }\n  }\n}\n---\nLiking this property will be visible to anyone who views your profile or searches your name.\nThis like may result in the post owner’s property to be featured on the property owner’s most liked pages.\nAny usage of bots, macros, or any autonomous form of liking a specific person’s property would result in the investigation of like legitimacy for a post."
-
-    }
-]
+  {
+    "name": "like",
+    "type": "like",
+    "ricardian_contract": "---\n{\n  \"title\": \"Create Post\",\n  \"summary\": \"Create a blog post \\\"{{title}}\\\" by {{author}} tagged as \\\"{{tag}}\\\"\",\n  \"icon\": {\n    \"type\": \"image\",\n    \"hash\": \"00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\",\n    \"urls\": [\n      \"https://app.com/create-post.png\",\n      \"https://dev.app.com/create-post.png\"\n    ]\n  },\n  \"resources\": {\n    \"content\": {\n      \"type\": \"image\",\n      \"hash\": \"1324FECCDDBB89089089090\",\n      \"urls\": [\n        \"https://app.com/user-1/profile-pic.jpg\",\n      ]\n    }\n  }\n}\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$resources.content}}\n\n{{$clauses.legalese}}"
+  }
+],
 
 ...
 
