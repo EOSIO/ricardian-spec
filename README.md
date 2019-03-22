@@ -1,4 +1,4 @@
-## EOSIO Ricardian Contract Specification
+## EOSIO Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
 **Spec Version**: v0.1.0
 
