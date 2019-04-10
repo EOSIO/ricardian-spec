@@ -32,8 +32,6 @@ Ricardian contracts should be written in the English language. The contract itse
   * Must be a valid Resource (*see below*)
   * Must include the SHA-256 hash. Contracts containing an icon without hashes will be rejected.
   * This icon may be displayed alongside the Ricardian contract
-* `resources`
-  * Contains a map of resources (*see below*) that are used in the Ricardian contract.
 
 ### Other Metadata Fields
 
@@ -63,22 +61,6 @@ The specification version follows a semantic versioning (semver) inspired scheme
 * Versions differing only in the `PATCH` version *MUST* be processable by any processor with the same `MAJOR.MINOR` version.
 * This will indicate changes in the specification that have no tangible effect on processing. For example, a textual change to the specification intended for human readability, spelling corrections, etc.
 
-#### Resources
-
-Contracts may contain inline resources. **Notice:** to specify resources, the metadata values **must be supplied in JSON format**, not YAML. Please see the [README for v0.0.0](https://github.com/EOSIO/ricardian-spec/blob/v0.0.0/README.md#images) for an example of how to define images in YAML format.
-
-A resource is defined as follows:
-```
-{
-  type: string
-  hash: string,
-  urls: string[]
-}
-```
-Currently the only supported type is `image`.
-
-Resources that do not have a SHA-256 `hash` specified will be rejected. In addition, validating user agents may check that the SHA-256 hash of the resource data (as pulled from any one of the specified urls) matches the supplied hash, and reject the contract if the hashes do not match.
-
 #### Variables
 
 All variables used within a contract must have a value or the contract will be rejected. Variable values may be supplied in the transaction, in the contract action, or in the Ricardian clause on the ABI. In addition, the Ricardian Template Toolkit will supply variables about the transaction.
@@ -92,7 +74,6 @@ The Ricardian Template Toolkit will supply the following variables, which allow 
 * `$clauses.clause_id` &ndash; Provides access to data in the `ricardian_clauses` on the ABI. E.g., `Section 2:\n\n{{$clauses.standard_clause}}`
 * Items in an array may be accessed by index. E.g., Accessing data in another action &ndash; `{{$transaction.actions.[2].data.from}}`
 * `$index` &ndash; A pseudo-field giving you the index of the current item in the array you're within. E.g., `{{$action.$index}}`	
-* `$resources` &ndash; Provides access to the content that is retrieved for the matching resource from the metadata fields.
 
 Variables may include a reference to other variables. A maximum number of three variable interpolation passes will be made. If there are still unresolved variables after the third pass, the contract will be considered invalid and an error will be returned by the user agent.
 
@@ -129,31 +110,13 @@ Metadata values beginning with special characters, such as a variable bracket (`
 
 ### Example Template
 
-The example below shows the metadata values supplied in JSON format. Please see the [README for v0.0.0](https://github.com/EOSIO/ricardian-spec/blob/v0.0.0/README.md#example-template) for an example of the metadata values supplied in YAML format.
+The example below shows the metadata in YAML format.
 
 ```
 ---
-{
-  "title": "Create Post",
-  "summary": "Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"",
-  "icon": {
-    "type": "image",
-    "hash": "00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562",
-    "urls": [
-      "https://app.com/create-post.png",
-      "https://dev.app.com/create-post.png"
-    ]
-  },
-  "resources": {
-    "content": {
-      "type": "image",
-      "hash": "1324FECCDDBB89089089090",
-      "urls": [
-        "https://app.com/user-1/profile-pic.jpg",
-      ]
-    }
-  }
-}
+title: Create Post
+summary: Create a blog post "{{title}}" by {{author}} tagged as "{{tag}}"
+icon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562
 ---
 I, {{author}}, author of the blog post "{{title}}", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.
 
