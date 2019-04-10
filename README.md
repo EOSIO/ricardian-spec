@@ -1,8 +1,9 @@
-## EOSIO Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
+## EOSIO.CDT Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
 **Spec Version**: v0.1.0
 
 ### General Information
+In conjunction with [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/), this specification is a new addition to the [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) suite of tooling.
 
 The Ricardian Contract Specification gives a set of requirements that a Ricardian contract should follow in order to be considered valid. Invalid contracts may still work with non-validating user agents, but will not work with user agents which are built with the [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/).
 
