@@ -29,7 +29,6 @@ Ricardian contracts should be written in the English language. The contract itse
 * `icon` -- *Required*
   * Provides a user-friendly graphical representation of the intent of the action
   * Is required to be a 256x256 pixel PNG image
-  * Must be a valid Resource (*see below*)
   * Must include the SHA-256 hash. Contracts containing an icon without hashes will be rejected.
   * This icon may be displayed alongside the Ricardian contract
 
