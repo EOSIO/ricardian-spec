@@ -1,6 +1,6 @@
 ## EOSIO.CDT Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
-**Spec Version**: v0.1.0
+**Spec Version**: v0.1.1
 
 ### General Information
 In conjunction with [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/), this specification is a new addition to the [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) suite of tooling.
