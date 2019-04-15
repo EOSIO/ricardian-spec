@@ -127,11 +127,11 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
 
 ```json
 "actions": [
-  {
-    "name": "createpost",
-    "type": "createpost",
-    "ricardian_contract": "---\n{\n  \"title\": \"Create Post\",\n  \"summary\": \"Create a blog post \\\"{{title}}\\\" by {{author}} tagged as \\\"{{tag}}\\\"\",\n  \"icon\": {\n    \"type\": \"image\",\n    \"hash\": \"00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\",\n    \"urls\": [\n      \"https://app.com/create-post.png\",\n      \"https://dev.app.com/create-post.png\"\n    ]\n  },\n  \"resources\": {\n    \"content\": {\n      \"type\": \"image\",\n      \"hash\": \"1324FECCDDBB89089089090\",\n      \"urls\": [\n        \"https://app.com/user-1/profile-pic.jpg\",\n      ]\n    }\n  }\n}\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}"
-  }
+    {
+      "name": "createpost",
+      "type": "createpost",
+      "ricardian_contract": "\n---\ntitle: Create Post\nsummary: Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"\nicon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}\n"
+    }
 ],
 
 ...
