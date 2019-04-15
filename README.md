@@ -1,6 +1,6 @@
 ## EOSIO.CDT Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
-**Spec Version**: v0.1.0
+**Spec Version**: v0.1.1
 
 ### General Information
 In conjunction with [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/), this specification is a new addition to the [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) suite of tooling.
@@ -9,7 +9,7 @@ The Ricardian Contract Specification gives a set of requirements that a Ricardia
 
 By conforming to a common specification, contracts can be validated and presented in a common way. For instance, Resources must contain a SHA-256 hash value which will allow a validating user agent to check the resource contents and ensure that the resource at the URL has not been altered. Since resources can be used to represent the user or company that is proposing the contract, it is important that the resource URL for the contract is correct and has not been altered since the contract was published.
 
-Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in JSON format or YAML format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution.
+Ricardian contracts should be written in the English language. The contract itself consists of a set of metadata values supplied in YAML format, followed by the body of the contract, written using a subset of [CommonMark](https://commonmark.org/) with [Handlebars](https://handlebarsjs.com/)-based variable substitution. Future versions may add support for metadata values supplied in JSON format.
 
 ### Metadata Fields
 
@@ -29,7 +29,6 @@ Ricardian contracts should be written in the English language. The contract itse
 * `icon` -- *Required*
   * Provides a user-friendly graphical representation of the intent of the action
   * Is required to be a 256x256 pixel PNG image
-  * Must be a valid Resource (*see below*)
   * Must include the SHA-256 hash. Contracts containing an icon without hashes will be rejected.
   * This icon may be displayed alongside the Ricardian contract
 
@@ -120,8 +119,6 @@ icon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7C
 ---
 I, {{author}}, author of the blog post "{{title}}", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.
 
-{{$resources.content}}
-
 {{$clauses.legalese}}
 ```
 
@@ -132,7 +129,7 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
   {
     "name": "createpost",
     "type": "createpost",
-    "ricardian_contract": "---\n{\n  \"title\": \"Create Post\",\n  \"summary\": \"Create a blog post \\\"{{title}}\\\" by {{author}} tagged as \\\"{{tag}}\\\"\",\n  \"icon\": {\n    \"type\": \"image\",\n    \"hash\": \"00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\",\n    \"urls\": [\n      \"https://app.com/create-post.png\",\n      \"https://dev.app.com/create-post.png\"\n    ]\n  },\n  \"resources\": {\n    \"content\": {\n      \"type\": \"image\",\n      \"hash\": \"1324FECCDDBB89089089090\",\n      \"urls\": [\n        \"https://app.com/user-1/profile-pic.jpg\",\n      ]\n    }\n  }\n}\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$resources.content}}\n\n{{$clauses.legalese}}"
+    "ricardian_contract": "---\ntitle: Create Post\nsummary: Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"\nicon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}"
   }
 ],
 
