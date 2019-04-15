@@ -130,7 +130,7 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
     {
       "name": "createpost",
       "type": "createpost",
-      "ricardian_contract": "\n---\ntitle: Create Post\nsummary: Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"\nicon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}\n"
+      "ricardian_contract": "\n---\ntitle: Create Post\nsummary: Create a blog post \"{{title}}\" by {{author}} tagged as \"{{tag}}\"\nicon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562\n---\nI, {{author}}, author of the blog post \"{{title}}\", certify that I am the original author of the contents of this blog post and have attributed all external sources appropriately.\n\n{{$clauses.legalese}}"
     }
 ],
 
