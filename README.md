@@ -13,7 +13,7 @@ Ricardian contracts should be written in the English language. The contract itse
 
 ### Metadata Fields
 
-* `spec-version` -- *Required*
+* `spec_version` -- *Required*
   * Specifies the version of the Ricardian Contract Specification that the contract follows
   * Value is a string in the form of `M.m.p`, where each version element is an integer representing the MAJOR, MINOR, and PATCH level of the specification being followed
   * May also be specified as `M.m`, omitting the PATCH level (*see below* for explanation of compatibility)
@@ -113,6 +113,7 @@ The example below shows the metadata in YAML format.
 
 ```
 ---
+spec_version: 0.0.0
 title: Create Post
 summary: Create a blog post "{{title}}" by {{author}} tagged as "{{tag}}"
 icon: https://app.com/create-post.png#00506E08A55BCF269FE67F202BBC08CFF55F9E3C7CD4459ECB90205BF3C3B562
