@@ -106,18 +106,70 @@ ___Since 0.0___
 
 * `nowrap` - Takes a variable. Indicates that the specified variable *should not* be wrapped with `<div>` tags. See `Variables` section above for more details.
 
-* `symbol_to_symbol_code` - Given a variable containing a 'symbol' string, extract and return only the symbol code. For example: '4,EOS' --> returns 'EOS'.
+* `symbol_to_symbol_code` - Given a variable containing a 'symbol' string, extract and return only the symbol code.
 
-* `asset_to_symbol_code` - Given a variable containing an 'asset' string, extract and return only the symbol code. For example: '2.001 EOS' --> returns 'EOS'.
+  Example:
+  ```
+  Given:
+  symbol = '4,EOS'
+  
+  {{ symbol_to_symbol_code symbol }} --> 'EOS'.
+
+* `asset_to_symbol_code` - Given a variable containing an 'asset' string, extract and return only the symbol code.
+
+  Example:
+  ```
+  Given:
+  asset = '2.001 EOS'
+  
+  {{ asset_to_symbol_code asset }} --> 'EOS'.
 
 ___Since 0.1___
 * `account_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
 
-* `permission_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
+  Example:
+  ```
+  Given Permission level / authorization:
+  auth = {
+          "actor": "alicejones",
+          "permission": "active"
+        }
+
+  In Ricardian contract:
+  {{ account_in_permission_level auth }} --> 'alicejones'
+  ```
+
+* `permission_in_permission_level` - Given a variable containing a permission level object, extract and return the permission name.
+
+  Example:
+  ```
+  Given Permission level / authorization:
+  auth = {
+          actor: 'alicejones',
+          permission: 'active'
+        }
+
+  In Ricardian contract:
+  {{ permission_in_permission_level auth }} --> 'active'
+  ```
 
 * `amount_from_asset` - Given a variable containing an asset, extract and return the amount.
 
-* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name.
+  Example:
+  ```
+  Given:
+  asset = '2.001 EOS'
+  
+  {{ amount_from_asset asset }} --> '2.001'.
+
+* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name. For example: '2.001 EOS' --> returns 'EOS'.
+
+  Example:
+  ```
+  Given:
+  asset = '2.001 EOS'
+  
+  {{ symbol_name_from_asset asset }} --> 'EOS'.
 
 ___Since 0.2___
 * `to_json` - Takes the given variable and renders it as a preformatted JSON string. Note that the resulting string is also surrounded by `<pre><code>` tags as well. This is intended as a debugging aid.
@@ -126,6 +178,12 @@ ___Since 0.2___
 
   Example:
   ```
+  {{#if_has_value myVar}}
+    Render if myVar has a non-null value
+  {{/if_has_value}}
+
+  Or
+  
   {{#if_has_value myVar}}
     Render if myVar has a non-null value
   {{ else }}
