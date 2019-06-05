@@ -1,6 +1,6 @@
 ## EOSIO.CDT Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
-**Spec Version**: v0.1.1
+**Spec Version**: v0.2.0
 
 ### General Information
 In conjunction with [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/), this specification is a new addition to the [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) suite of tooling.
@@ -83,9 +83,9 @@ For styling purposes, by default interpolated variables in the output will be wr
 * Action values will be given the `action` class (e.g., `<div class="variable action">value</div>`)
 * Clause values will be given the `clauses` class (e.g., `<div class="variable clauses">value</div>`)
 
-In cases where this default variable wrapping can cause problems (e.g. a variable containing a URL that becomes the value of an HREF attribute) there are additional Handlebars handlers to override the default behavior.
+In cases where this default variable wrapping can cause problems (e.g. a variable containing a URL that becomes the value of an HREF attribute) there are additional Handlebars helpers to override the default behavior.
 
-* To prevent an individual variable from being wrapped, use the `nowrap` handler.
+* To prevent an individual variable from being wrapped, use the `nowrap` helper.
 
   For example, to create a link with unwrapped individual variables:
 
@@ -97,6 +97,41 @@ In cases where this default variable wrapping can cause problems (e.g. a variabl
 
   `{{#wrap}}[{{nowrap link.text}}]({{nowrap link.url}}){{/wrap}}`
 
+#### Handlebars helpers
+
+In addition to the standard helpers which are part of Handlebars, there are a number of additional helpers defined to assist with Ricardian contract specific issues.
+
+___Since 0.0___
+* `wrap` - Takes no parameters. Block level helper to wrap the contents with `<div>` tags for highlighting. See `Variables` section above for more details.
+
+* `nowrap` - Takes a variable. Indicates that the specified variable *should not* be wrapped with `<div>` tags. See `Variables` section above for more details.
+
+* `symbol_to_symbol_code` - Given a variable containing a 'symbol' string, extract and return only the symbol code. For example: '4,EOS' --> returns 'EOS'.
+
+* `asset_to_symbol_code` - Given a variable containing an 'asset' string, extract and return only the symbol code. For example: '2.001 EOS' --> returns 'EOS'.
+
+___Since 0.1___
+* `account_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
+
+* `permission_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
+
+* `amount_from_asset` - Given a variable containing an asset, extract and return the amount.
+
+* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name.
+
+___Since 0.2___
+* `to_json` - Takes the given variable and renders it as a preformatted JSON string. Note that the resulting string is also surrounded by `<pre><code>` tags as well. This is intended as a debugging aid.
+
+* `if_has_value` - A block level helper which checks the given variable and if it is defined __AND__ not null then renders the content. If the variable is `undefined` __OR__ null render nothing or the contents of the `{{ else }}` clause if specified.
+
+  Example:
+  ```
+  {{#if_has_value myVar}}
+    Render if myVar has a non-null value
+  {{ else }}
+    Render if myVar is undefined or null
+  {{/if_has_value}}
+  ```
 #### HTML in variables
 
 By default, any `{{variables}}` that contain HTML will have that HTML escaped. This may not be the desired outcome, as the `ricardian_clauses` may have HTML that the author wants rendered rather than escaped.
