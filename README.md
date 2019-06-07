@@ -127,7 +127,7 @@ ___Since v0.0___
   ```
 
 ___Since v0.1___
-* `account_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
+* `account_in_permission_level` - _(__Deprecated__ Unnecessary since the account name can be accessed directly on the authorization object via standard dot notation.)_ Given a variable containing a permission level object, extract and return the account name.
 
   Example:
   ```
@@ -141,7 +141,7 @@ ___Since v0.1___
   {{ account_in_permission_level auth }} --> 'alicejones'
   ```
 
-* `permission_in_permission_level` - Given a variable containing a permission level object, extract and return the permission name.
+* `permission_in_permission_level` - _(__Deprecated__ Unnecessary since the permission name can be accessed directly on the authorization object via standard dot notation.)_ Given a variable containing a permission level object, extract and return the permission name.
 
   Example:
   ```
@@ -165,7 +165,7 @@ ___Since v0.1___
   {{ amount_from_asset asset }} --> '2.001'.
   ```
 
-* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name.
+* `symbol_name_from_asset` - _(__Deprecated__ Use `asset_to_symbol_code` instead.)_ Given a variable containing an asset, extract and return the symbol name.
 
   Example:
   ```
