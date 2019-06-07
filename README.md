@@ -114,6 +114,7 @@ ___Since v0.0___
   symbol = '4,EOS'
   
   {{ symbol_to_symbol_code symbol }} --> 'EOS'.
+  ```
 
 * `asset_to_symbol_code` - Given a variable containing an 'asset' string, extract and return only the symbol code.
 
