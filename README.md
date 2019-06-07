@@ -101,10 +101,10 @@ In cases where this default variable wrapping can cause problems (e.g. a variabl
 
 In addition to the standard helpers which are part of Handlebars, there are a number of additional helpers defined to assist with Ricardian contract specific issues.
 
-___Since 0.0___
-* `wrap` - Takes no parameters. Block level helper to wrap the contents with `<div>` tags for highlighting. See `Variables` section above for more details.
+___Since v0.0___
+* `wrap` - Takes no parameters. Block level helper to wrap the contents with `<div>` tags for highlighting. See [Variables](#Variables) section above for more details.
 
-* `nowrap` - Takes a variable. Indicates that the specified variable *should not* be wrapped with `<div>` tags. See `Variables` section above for more details.
+* `nowrap` - Takes a variable. Indicates that the specified variable *should not* be wrapped with `<div>` tags. See [Variables](#Variables) section above for more details.
 
 * `symbol_to_symbol_code` - Given a variable containing a 'symbol' string, extract and return only the symbol code.
 
@@ -123,8 +123,9 @@ ___Since 0.0___
   asset = '2.001 EOS'
   
   {{ asset_to_symbol_code asset }} --> 'EOS'.
+  ```
 
-___Since 0.1___
+___Since v0.1___
 * `account_in_permission_level` - Given a variable containing a permission level object, extract and return the account name.
 
   Example:
@@ -161,8 +162,9 @@ ___Since 0.1___
   asset = '2.001 EOS'
   
   {{ amount_from_asset asset }} --> '2.001'.
+  ```
 
-* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name. For example: '2.001 EOS' --> returns 'EOS'.
+* `symbol_name_from_asset` - Given a variable containing an asset, extract and return the symbol name.
 
   Example:
   ```
@@ -170,9 +172,22 @@ ___Since 0.1___
   asset = '2.001 EOS'
   
   {{ symbol_name_from_asset asset }} --> 'EOS'.
+  ```
 
-___Since 0.2___
+___Since v0.2___
 * `to_json` - Takes the given variable and renders it as a preformatted JSON string. Note that the resulting string is also surrounded by `<pre><code>` tags as well. This is intended as a debugging aid.
+
+  Example:
+  ```
+  {{to_json nameObj}}
+
+  <pre><code>
+  {
+    "firstname": "John",
+    "lastname": "Doe"
+  }
+  </pre></code>
+  ```
 
 * `if_has_value` - A block level helper which checks the given variable and if it is defined __AND__ not null then renders the content. If the variable is `undefined` __OR__ null render nothing or the contents of the `{{ else }}` clause if specified.
 
