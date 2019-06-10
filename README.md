@@ -97,7 +97,7 @@ In cases where this default variable wrapping can cause problems (e.g. a variabl
 
   `{{#wrap}}[{{nowrap link.text}}]({{nowrap link.url}}){{/wrap}}`
 
-#### Handlebars helpers
+#### Handlebars Helpers
 
 In addition to the standard helpers which are part of Handlebars, there are a number of additional helpers defined to assist with Ricardian contract specific issues.
 
@@ -127,34 +127,6 @@ ___Since v0.0___
   ```
 
 ___Since v0.1___
-* `account_in_permission_level` - _(__Deprecated__ Unnecessary since the account name can be accessed directly on the authorization object via standard dot notation.)_ Given a variable containing a permission level object, extract and return the account name.
-
-  Example:
-  ```
-  Given Permission level / authorization:
-  auth = {
-          "actor": "alicejones",
-          "permission": "active"
-        }
-
-  In Ricardian contract:
-  {{ account_in_permission_level auth }} --> 'alicejones'
-  ```
-
-* `permission_in_permission_level` - _(__Deprecated__ Unnecessary since the permission name can be accessed directly on the authorization object via standard dot notation.)_ Given a variable containing a permission level object, extract and return the permission name.
-
-  Example:
-  ```
-  Given Permission level / authorization:
-  auth = {
-          actor: 'alicejones',
-          permission: 'active'
-        }
-
-  In Ricardian contract:
-  {{ permission_in_permission_level auth }} --> 'active'
-  ```
-
 * `amount_from_asset` - Given a variable containing an asset, extract and return the amount.
 
   Example:
@@ -163,16 +135,6 @@ ___Since v0.1___
   asset = '2.001 EOS'
   
   {{ amount_from_asset asset }} --> '2.001'.
-  ```
-
-* `symbol_name_from_asset` - _(__Deprecated__ Use `asset_to_symbol_code` instead.)_ Given a variable containing an asset, extract and return the symbol name.
-
-  Example:
-  ```
-  Given:
-  asset = '2.001 EOS'
-  
-  {{ symbol_name_from_asset asset }} --> 'EOS'.
   ```
 
 ___Since v0.2___
@@ -206,7 +168,7 @@ ___Since v0.2___
     Render if myVar is undefined or null
   {{/if_has_value}}
   ```
-#### HTML in variables
+#### HTML in Variables
 
 By default, any `{{variables}}` that contain HTML will have that HTML escaped. This may not be the desired outcome, as the `ricardian_clauses` may have HTML that the author wants rendered rather than escaped.
 
