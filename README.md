@@ -1,6 +1,6 @@
 ## EOSIO.CDT Ricardian Contract Specification ![EOSIO Alpha](https://img.shields.io/badge/EOSIO-Alpha-blue.svg)
 
-**Spec Version**: v0.1.1
+**Spec Version**: v0.2.0
 
 ### General Information
 In conjunction with [Ricardian Template Toolkit](https://github.com/EOSIO/ricardian-template-toolkit/), this specification is a new addition to the [EOSIO.CDT](https://github.com/EOSIO/eosio.cdt) suite of tooling.
@@ -83,9 +83,9 @@ For styling purposes, by default interpolated variables in the output will be wr
 * Action values will be given the `action` class (e.g., `<div class="variable action">value</div>`)
 * Clause values will be given the `clauses` class (e.g., `<div class="variable clauses">value</div>`)
 
-In cases where this default variable wrapping can cause problems (e.g. a variable containing a URL that becomes the value of an HREF attribute) there are additional Handlebars handlers to override the default behavior.
+In cases where this default variable wrapping can cause problems (e.g. a variable containing a URL that becomes the value of an HREF attribute) there are additional Handlebars helpers to override the default behavior.
 
-* To prevent an individual variable from being wrapped, use the `nowrap` handler.
+* To prevent an individual variable from being wrapped, use the `nowrap` helper.
 
   For example, to create a link with unwrapped individual variables:
 
@@ -97,7 +97,78 @@ In cases where this default variable wrapping can cause problems (e.g. a variabl
 
   `{{#wrap}}[{{nowrap link.text}}]({{nowrap link.url}}){{/wrap}}`
 
-#### HTML in variables
+#### Handlebars Helpers
+
+In addition to the standard helpers which are part of Handlebars, there are a number of additional helpers defined to assist with Ricardian contract specific issues.
+
+___Since v0.0___
+* `wrap` - Takes no parameters. Block level helper to wrap the contents with `<div>` tags for highlighting. See [Variables](#Variables) section above for more details.
+
+* `nowrap` - Takes a variable. Indicates that the specified variable *should not* be wrapped with `<div>` tags. See [Variables](#Variables) section above for more details.
+
+* `symbol_to_symbol_code` - Given a variable containing a 'symbol' string, extract and return only the symbol code.
+
+  Example:
+  ```
+  Given:
+  symbol = '4,EOS'
+  
+  {{ symbol_to_symbol_code symbol }} --> 'EOS'.
+  ```
+
+* `asset_to_symbol_code` - Given a variable containing an 'asset' string, extract and return only the symbol code.
+
+  Example:
+  ```
+  Given:
+  asset = '2.001 EOS'
+  
+  {{ asset_to_symbol_code asset }} --> 'EOS'.
+  ```
+
+___Since v0.1___
+* `amount_from_asset` - Given a variable containing an asset, extract and return the amount.
+
+  Example:
+  ```
+  Given:
+  asset = '2.001 EOS'
+  
+  {{ amount_from_asset asset }} --> '2.001'.
+  ```
+
+___Since v0.2___
+* `to_json` - Takes the given variable and renders it as a preformatted JSON string. Note that the resulting string is also surrounded by `<pre><code>` tags as well. This is intended as a debugging aid.
+
+  Example:
+  ```
+  {{to_json nameObj}}
+
+  <pre><code>
+  {
+    "firstname": "John",
+    "lastname": "Doe"
+  }
+  </pre></code>
+  ```
+
+* `if_has_value` - A block level helper which checks the given variable and if it is defined __AND__ not null then renders the content. If the variable is `undefined` __OR__ null render nothing or the contents of the `{{ else }}` clause if specified.
+
+  Example:
+  ```
+  {{#if_has_value myVar}}
+    Render if myVar has a non-null value
+  {{/if_has_value}}
+
+  Or
+  
+  {{#if_has_value myVar}}
+    Render if myVar has a non-null value
+  {{ else }}
+    Render if myVar is undefined or null
+  {{/if_has_value}}
+  ```
+#### HTML in Variables
 
 By default, any `{{variables}}` that contain HTML will have that HTML escaped. This may not be the desired outcome, as the `ricardian_clauses` may have HTML that the author wants rendered rather than escaped.
 
@@ -156,6 +227,6 @@ I, {{author}}, author of the blog post "{{title}}", certify that I am the origin
 
 ## Important
 
-See LICENSE for copyright and license terms.  Block.one makes its contribution on a voluntary basis as a member of the EOSIO community and is not responsible for ensuring the overall performance of the software or any related applications.  We make no representation, warranty, guarantee or undertaking in respect of the software or any related documentation, whether expressed or implied, including but not limited to the warranties or merchantability, fitness for a particular purpose and noninfringement. In no event shall we be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or documentation or the use or other dealings in the software or documentation.  Any test results or performance figures are indicative and will not reflect performance under all conditions.  Any reference to any third party or third-party product, service or other resource is not an endorsement or recommendation by Block.one.  We are not responsible, and disclaim any and all responsibility and liability, for your use of or reliance on any of these resources. Third-party resources may be updated, changed or terminated at any time, so the information here may be out of date or inaccurate.
+See LICENSE for copyright and license terms.  Block.one makes its contribution on a voluntary basis as a member of the EOSIO community and is not responsible for ensuring the overall performance of the software or any related applications.  We make no representation, warranty, guarantee or undertaking in respect of the software or any related documentation, whether expressed or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement. In no event shall we be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or documentation or the use or other dealings in the software or documentation. Any test results or performance figures are indicative and will not reflect performance under all conditions.  Any reference to any third party or third-party product, service or other resource is not an endorsement or recommendation by Block.one.  We are not responsible, and disclaim any and all responsibility and liability, for your use of or reliance on any of these resources. Third-party resources may be updated, changed or terminated at any time, so the information here may be out of date or inaccurate.  Any person using or offering this software in connection with providing software, goods or services to third parties shall advise such third parties of these license terms, disclaimers and exclusions of liability.  Block.one, EOSIO, EOSIO Labs, EOS, the heptahedron and associated logos are trademarks of Block.one.
 
 Wallets and related components are complex software that require the highest levels of security.  If incorrectly built or used, they may compromise users’ private keys and digital assets. Wallet applications and related components should undergo thorough security evaluations before being used.  Only experienced developers should work with this software.
